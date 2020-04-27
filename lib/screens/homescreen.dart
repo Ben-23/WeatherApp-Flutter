@@ -155,7 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       height: 10.0,
                     ),
                     Text(
-                      "${widget.weatherData.pressure}Hpa",
+                      "${widget.weatherData.pressure}Pa",
                       style: TextStyle(
                           fontSize: 17.0,
                           color: Color(0xffffffff),
@@ -207,7 +207,23 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Row(
               children: <Widget>[
                 Text(
-                  'Sunset  : ',
+                  'Sunrise  : ',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+                ),
+                Text(
+                  widget.weatherData.sr,
+                  style: TextStyle(fontSize: 18.0),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
+            child: Row(
+              children: <Widget>[
+                Text(
+                  'Sunset : ',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
                 ),
                 Text(
@@ -223,11 +239,11 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Row(
               children: <Widget>[
                 Text(
-                  'Sunrise : ',
+                  'Visiblity : ',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
                 ),
                 Text(
-                  widget.weatherData.sr,
+                  widget.weatherData.visibility,
                   style: TextStyle(fontSize: 18.0),
                 ),
               ],

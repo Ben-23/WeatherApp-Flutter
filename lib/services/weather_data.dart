@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:climaapp/services/device_location.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
@@ -16,8 +15,24 @@ class WeatherData {
   var country;
   var desc;
   IconData weatherIcon;
+  var visibility;
+
   var st, sr;
   DateTime sunrise, sunset;
+
+  String formatHour(DateTime dateTime) {
+    if (dateTime.hour > 12) {
+      return "${dateTime.hour - 12}";
+    } else
+      return "${dateTime.hour}";
+  }
+
+  String formatMin(DateTime dateTime) {
+    if (dateTime.minute < 10) {
+      return "0${dateTime.minute}";
+    } else
+      return "${dateTime.minute}";
+  }
 
   Future<void> getWeatherData(DLocation dLocation) async {
     try {
@@ -32,12 +47,14 @@ class WeatherData {
       cityName = decodedData['name'];
       country = decodedData['sys']['country'];
       desc = decodedData['weather'][0]['main'];
-      sunrise =
-          DateTime.fromMillisecondsSinceEpoch(decodedData['sys']['sunrise']);
-      sunset =
-          DateTime.fromMillisecondsSinceEpoch(decodedData['sys']['sunset']);
-      sr = "${sunrise.hour}:${sunrise.minute} AM";
-      st = "${sunset.hour}:${sunset.minute} PM";
+      sunrise = DateTime.fromMillisecondsSinceEpoch(
+          (decodedData['sys']['sunrise']) * 1000);
+      sunset = DateTime.fromMillisecondsSinceEpoch(
+          (decodedData['sys']['sunset']) * 1000);
+
+      sr = formatHour(sunrise) + ":" + formatMin(sunrise) + " AM";
+      st = formatHour(sunset) + ":" + formatMin(sunset) + " PM";
+      visibility = (decodedData['visibility']).toString() + " Meter";
     } catch (e) {
       print('An unexpected exception caught $e');
     }
